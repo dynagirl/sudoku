@@ -19,8 +19,9 @@ int main()
 
    Puzzle TestPuzzle;
    TestPuzzle.Read_From_File("SudokuTest1.txt");
-
-
+   TestPuzzle.Display_Choices();
+   TestPuzzle.Display_Choices2();
+   //std::cin >> s;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
