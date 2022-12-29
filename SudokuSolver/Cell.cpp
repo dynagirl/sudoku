@@ -4,8 +4,6 @@
 Cell::Cell()
 {
    answer = 0;
-   //row = 0;
-   //col = 0;
    
    // bitset starts out with all zeros.  No need to reset it in the constructor.
    //candidates.reset();
@@ -20,17 +18,30 @@ void Cell::SetAnswer(int input)
 {
    answer = input;
    if (input > 0)
-      choices.set(input);
+   {
+      //choices.reset();   //bitset starts with all zeroes.
+      choices[input] = true;
+   }
    else
-      for (int i=1; i <= 9; i++)
+   {
+      for (int i = 1; i <= 9; i++)
       {
-         choices.set(i);
+         choices[i] = true;
       };
+   }
 }
 
 int Cell::GetAnswer(void)
 {
     return answer;
+}
+
+void Cell::Eliminate(int choice)
+{
+   if (answer == 0)
+   {
+      choices[choice]=false;
+   }
 }
 
 void Cell::Display123(int start, int count)
@@ -53,7 +64,7 @@ void Cell::Display123(int start, int count)
    {
       for (int i = start; i <= start + count - 1; i++)
       {
-         if (choices.test(i))
+         if (choices[i]==true)
             std::cout << i;
          //std::cout << choices[i];
          else

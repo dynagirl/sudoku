@@ -10,6 +10,7 @@ public:
    ~Cell();
    void SetAnswer(int input); 
    int GetAnswer(void);
+   void Eliminate(int choice);
    void Display123(int start, int count);
    //ostream& operator << (ostream& os, custom_type& t);
    //ostream& operator << (ostream& os);
