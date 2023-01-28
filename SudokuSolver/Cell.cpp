@@ -73,6 +73,23 @@ void Cell::Display123(int start, int count)
    }
 }
 
+bool Cell::OneChoiceLeft(int &RemainingChoice)
+{
+   bool OneLeft = (choices.count() == 1);
+   if (OneLeft)
+   {
+      for (int bit = 1; bit <= 9; bit++)
+      {
+         if (choices[bit] == 1)
+         {
+            RemainingChoice = bit;
+            break;
+         }
+      }
+   }
+   return OneLeft;
+}
+
 //std::ostream& operator << (std::ostream& out, const Cell& c)
 std::ostream& operator << (std::ostream& out, Cell& c)
 {

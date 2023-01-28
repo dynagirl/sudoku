@@ -12,6 +12,7 @@ public:
    int GetAnswer(void);
    void Eliminate(int choice);
    void Display123(int start, int count);
+   bool OneChoiceLeft(int &RemainingChoice);
    //ostream& operator << (ostream& os, custom_type& t);
    //ostream& operator << (ostream& os);
    //friend ostream& operator << (ostream& out, const Complex& c);

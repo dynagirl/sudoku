@@ -25,8 +25,8 @@ bool Puzzle::Read_From_File(std::string filename)
          P[row][col].SetAnswer(input);
          if (input > 0)
          {
-            //cellLocation cLoc(row, col);
-            //Q.push(cLoc);
+            cellLocation cLoc(row, col);
+            Q.push(cLoc);
          }
       }
       std::getline(inStream,dummy);
@@ -104,16 +104,18 @@ bool Puzzle::Display_Choices2(void)
 
 void Puzzle::EliminateChoices(void)
 {
-   //cellLocation cLoc;
+   cellLocation cLoc;
    int row = 0;
    int col = 0;
    int ChoiceToEliminate = P[row][col].GetAnswer();
 
-   //while (Q.empty() != true)
+   while (Q.empty() != true)
    {
-      //Q.pop(cLoc);
-      //row = cLoc.first();
-      //col = cLoc.second();
+      cLoc = Q.front();
+      Q.pop();
+      row = cLoc.first;
+      col = cLoc.second;
+      ChoiceToEliminate = P[row][col].GetAnswer();
 
       // Eliminte in same row by looping across the columns.
       for (int c = 0; c <= 8; c++)
@@ -125,7 +127,7 @@ void Puzzle::EliminateChoices(void)
       {
          P[r][col].Eliminate(ChoiceToEliminate);
       }
-      // Eliminte in same area.
+      // Eliminte in same region.
       int rStart = 0;
       if (row <= 2)
          rStart = 0;
@@ -145,9 +147,25 @@ void Puzzle::EliminateChoices(void)
       //int cStart = mod(col, 3) * 3;
       for (int r = rStart; r <= rStart+2; r++)
       {
-         for (int c = cStart; c <= cStart + 2; c++)
+         for (int c = cStart; c <= cStart+2; c++)
          {
             P[r][c].Eliminate(ChoiceToEliminate);
+         }
+      }
+      for (int row = 0; row <= 8; row++)
+      {
+         for (int col = 0; col <= 8; col++)
+         {
+            if (P[row][col].GetAnswer() == 0)
+            {
+               int NewAnswer = 0;
+               if (P[row][col].OneChoiceLeft(NewAnswer))
+               {
+                  cellLocation cLoc(row, col);
+                  Q.push(cLoc);
+                  P[row][col].SetAnswer(NewAnswer);
+               }
+            }
          }
       }
    }
