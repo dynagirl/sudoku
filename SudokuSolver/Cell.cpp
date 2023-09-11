@@ -53,7 +53,7 @@ void Cell::Display123(int start, int count)
       //std::cout << answer;
       for (int i = start; i <= start + count - 1; i++)
       {
-         if (choices.test(i))
+         if (choices[i] == true)
             std::cout << i;
          //std::cout << choices[i];
          else
